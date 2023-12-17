@@ -33,11 +33,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.mayonnaise.rlchlibrary.R
+import com.mayonnaise.rlchlibrary.viewmodels.BlogViewModel
 
 
 @Composable
-fun BaseScreen(){
+fun BaseScreen(navController: NavController, blogViewModel: BlogViewModel){
     val titles = listOf("Blog", "Biblioteka")
     val tabIcons = listOf(R.drawable.baseline_article_24, R.drawable.baseline_menu_book_24)
     var tabIndex by remember { mutableStateOf(0) }
@@ -127,12 +129,14 @@ fun BaseScreen(){
         padding ->
 
         Surface(
-            modifier = Modifier.fillMaxSize().padding(0.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(0.dp),
             color = MaterialTheme.colorScheme.background
         ) {
             when (tabIndex) {
-                0 -> BlogScreen()
-                1 -> BookSelectorScreen()
+                0 -> BlogScreen(viewModel = blogViewModel)
+                1 -> BlogScreen(viewModel = blogViewModel)
             }
         }
 
@@ -142,5 +146,5 @@ fun BaseScreen(){
 @Composable
 @Preview(showBackground = true)
 fun BaseScreenPreview(){
-    BaseScreen()
+    //BaseScreen()
 }
